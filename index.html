@@ -3,83 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#001a14" />
-  <title>SABR — Splash Preview</title>
+  <meta name="theme-color" content="#111312" />
+  <meta name="color-scheme" content="dark" />
+  <title>SABR — Minimal Splash Test</title>
   <style>
-    :root { color-scheme: dark; font-family: system-ui, -apple-system, Segoe UI, sans-serif; }
+    :root { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color-scheme: dark; }
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; background: #001a14; }
-    body { min-height: 100svh; overflow: hidden; }
-    .screen { position: fixed; inset: 0; display: grid; place-items: center; }
+    html, body { margin: 0; width: 100%; min-height: 100%; background: #111312; }
+    body { min-height: 100svh; }
+    .screen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+
+    /* No image background, effects, progress bar, or third-party fonts. */
     #splash {
-      z-index: 2;
-      background: #001a14;
+      z-index: 10;
+      background: #111312;
       opacity: 1;
       visibility: visible;
-      transition: opacity 180ms ease, visibility 180ms ease;
+      transition: opacity 160ms ease-out, visibility 160ms ease-out;
     }
-    #splash.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    #splash img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; }
-    /* Show the whole splash picture on wider laptop monitors. */
-    @media (min-aspect-ratio: 3/2) {
-      #splash img { object-fit: contain; }
+    #splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .splash-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 28px;
+      transform: translateY(-3vh);
     }
+    .app-icon {
+      width: clamp(132px, 36vw, 166px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 31%;
+      background: #1b1e1c;
+    }
+    .emblem { display: block; height: 74%; width: 55%; }
+    .arabic-name {
+      margin: 29px 0 0;
+      color: #f2f1e9;
+      font-family: "Noto Naskh Arabic", "Noto Sans Arabic", "Geeza Pro", "Traditional Arabic", Tahoma, serif;
+      font-size: clamp(40px, 10vw, 52px);
+      font-weight: 400;
+      line-height: 1.5;
+      direction: rtl;
+    }
+    .english-name {
+      margin: 2px 0 0;
+      padding-left: .27em;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: #d6d9d5;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: .27em;
+      line-height: 1.5;
+    }
+
     #home {
-      background: radial-gradient(ellipse at 50% 30%, #083b2b 0%, #041a15 55%, #010906 100%);
-      color: #f4f4e9;
-      padding: max(24px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom));
+      background: #111312;
+      color: #f2f1e9;
       text-align: center;
+      padding: 26px;
     }
-    .contents { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-    .wordmark { font: 400 clamp(2.5rem, 9vw, 4.5rem)/1.1 Georgia, serif; letter-spacing: .28em; margin-left: .28em; }
-    .arabic { font-size: clamp(2.5rem, 8vw, 4rem); color: #72d8a5; }
-    .message { font-size: 15px; max-width: 27ch; color: #b5cbbd; line-height: 1.6; }
+    .home-content { max-width: 340px; }
+    .home-content h1 { font-weight: 600; font-size: 24px; letter-spacing: .14em; margin-bottom: 12px; }
+    .home-content p { color: #b0b9b3; font-size: 15px; line-height: 1.6; }
     button {
-      margin-top: 12px; min-height: 48px; padding: 13px 26px;
-      background: #55d49c; color: #07271b;
-      border: none; border-radius: 12px;
-      font-size: 16px; font-weight: 700; cursor: pointer;
+      appearance: none;
+      margin-top: 20px;
+      padding: 13px 20px;
+      min-height: 48px;
+      background: #2dad7a;
+      border: none;
+      border-radius: 10px;
+      color: #08140e;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
     }
-    button:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+    button:focus-visible { outline: 2px solid #f2f1e9; outline-offset: 4px; }
+    button:disabled { opacity: .6; cursor: not-allowed; }
     @media (prefers-reduced-motion: reduce) {
       #splash { transition: none; }
     }
   </style>
 </head>
 <body>
-  <main id="home" class="screen" aria-label="Preview after loading screen">
-    <div class="contents">
-      <div class="wordmark">SABR</div>
-      <div class="arabic" lang="ar" dir="rtl">صبر</div>
-      <p class="message">Splash screen complete. This is just a test page, not the SABR app.</p>
+  <!-- Temporary preview destination. Replace with actual SABR home screen later. -->
+  <main id="home" class="screen">
+    <div class="home-content">
+      <h1>SABR</h1>
+      <p>The minimal splash screen has finished. This is a test page, not your actual app.</p>
       <button id="replay" type="button">Replay 1-second splash</button>
     </div>
   </main>
 
-  <div id="splash" class="screen" role="img" aria-label="SABR loading screen featuring the green logo, Arabic and English name and progress bar">
-    <img src="assets/sabr-splash.png" alt="" fetchpriority="high" />
-  </div>
+  <section id="splash" class="screen" aria-label="SABR opening screen">
+    <div class="splash-lockup">
+      <div class="app-icon" aria-label="SABR emerald diamond symbol" role="img">
+        <!-- Lightweight vector reinterpretation of the selected emerald diamond logo. -->
+        <svg class="emblem" viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M50 2 82 80 50 158 18 80Z" fill="#23ac78"/>
+          <path d="M50 2 50 80 18 80Z" fill="#49c792"/>
+          <path d="M50 2 82 80 50 80Z" fill="#2cb886"/>
+          <path d="M18 80 50 158 50 80Z" fill="#17855e"/>
+          <path d="M50 80 50 158 82 80Z" fill="#219e70"/>
+          <path d="M50 56 69 80 50 104 31 80Z" fill="#1b1e1c"/>
+        </svg>
+      </div>
+      <div class="arabic-name" lang="ar" dir="rtl">صبر</div>
+      <div class="english-name">SABR</div>
+    </div>
+  </section>
 
   <script>
     const splash = document.getElementById('splash');
     const replay = document.getElementById('replay');
-    const SPLASH_DURATION_MS = 1000;
-    const FADE_DURATION_MS = 180;
-    let timeout;
+    const DURATION = 1000;
+    const FADE = 160;
+    let hideTimer;
 
-    function showSplash() {
-      window.clearTimeout(timeout);
-      splash.classList.remove('is-hidden');
+    function playSplash() {
+      clearTimeout(hideTimer);
+      splash.classList.remove('hidden');
       replay.disabled = true;
-      timeout = window.setTimeout(() => {
-        splash.classList.add('is-hidden');
-        replay.disabled = false;
-      }, SPLASH_DURATION_MS - FADE_DURATION_MS);
+      // Total splash time ~1000ms, including the final 160ms fade.
+      hideTimer = setTimeout(() => {
+        splash.classList.add('hidden');
+        setTimeout(() => { replay.disabled = false; }, FADE);
+      }, DURATION - FADE);
     }
 
-    // Start the one-second preview after the image is fully loaded.
-    window.addEventListener('load', showSplash, { once: true });
-    replay.addEventListener('click', showSplash);
+    // Splash is visible immediately from HTML/CSS. Start the 1-second timer on DOM readiness.
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', playSplash, { once: true });
+    } else {
+      playSplash();
+    }
+    replay.addEventListener('click', playSplash);
   </script>
 </body>
 </html>

@@ -1,20 +1,32 @@
-# SABR splash screen — 1-second GitHub Pages test
+# SABR — Minimal 1-second splash test
 
-A tiny standalone test of the approved emerald-green SABR splash design. It displays the original approved image (icon, صبر, SABR and loading bar) for approximately **one second** and then shows a test page with a **Replay 1-second splash** button.
+A single-page, dependency-free visual test for GitHub Pages.
 
-## Test on your phone or computer via GitHub Pages
+- Matte near-black background
+- Emerald geometric logo, with Arabic **صبر** and English **SABR**
+- No decorative hills, glow, gradients, or loading bar
+- Automatic fade into the test page after 1 second
+- Replay button on the test page
+- Works offline; no extra images or packages required
 
-1. Create a new GitHub repository, such as `sabr-splash-test`.
-2. Upload `index.html` and the **`assets` folder** to the repository root (do not upload the outer ZIP directly). Commit the files.
-3. Open **Settings → Pages** in that repository.
-4. Under **Build and deployment**, select **Deploy from a branch**, choose **main** and **/(root)**, then Save.
-5. When the GitHub Pages deployment is complete, open the URL shown under Pages. It usually resembles `https://USERNAME.github.io/sabr-splash-test/`.
+## Update the existing Codespaces test repo
 
-For a private repository, GitHub Pages availability may depend on your plan/settings. A public test repository is sufficient because this demo contains no user data or secrets.
+1. Upload the ZIP to the repository root, then in the Codespaces terminal run:
 
-## Notes
+   ```sh
+   unzip -o SABR_Minimal_1_Second_Splash_Test.zip -d .
+   ```
 
-- This is a **browser preview**, not an Android APK, and it does not modify the original SABR project.
-- The loading progress bar is drawn in the preview image, **not a live download progress indicator**. It is intentionally only a visual mock-up.
-- The code loads no third-party packages, has no API calls, and stores no data.
-- Edit `SPLASH_DURATION_MS` in `index.html` to change the splash duration.
+2. Commit and push:
+
+   ```sh
+   git add index.html README.md
+   git commit -m "Simplify SABR splash screen"
+   git push
+   ```
+
+3. Refresh the GitHub Pages URL (or use the Codespaces preview). If changes appear stale, force refresh.
+
+If previewing locally, run `python3 -m http.server 8000` from the repository root, and open port 8000 under **Ports**.
+
+This changes only the test page. It does **not** modify the production Android application.
